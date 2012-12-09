@@ -19,9 +19,11 @@ class Chef::Node
         rv = []
         q =  Chef::Search::Query.new
         rv += q.search(:node, "chef_environment:#{self.chef_environment}").first unless self.chef_environment == '_default'
-        self['allies'].each do |ally|
-          ally = "name:#{ally}" unless ally.include?(':')
-          rv += q.search(:node, ally).first
+        if self['allies']
+          self['allies'].each do |ally|
+            ally = "name:#{ally}" unless ally.include?(':')
+            rv += q.search(:node, ally).first
+          end
         end
         rv
       end
