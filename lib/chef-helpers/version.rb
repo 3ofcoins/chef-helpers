@@ -1,5 +1,3 @@
-module Chef
-  module Helpers
-    VERSION = "0.0.1"
-  end
+module ChefHelpers
+  VERSION = "0.0.2"
 end
