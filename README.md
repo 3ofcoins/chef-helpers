@@ -4,7 +4,11 @@ This gem includes miscellaneous add-on helper methods for Opscode Chef.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+To use helper methods in your Chef recipes, add `chef_gem
+'chef-helpers'` and `require 'chef-helpers'` in your recipes.
+
+To use methods locally in `knife exec` scripts or Knife plugins, add
+this line to your application's Gemfile:
 
     gem 'chef-helpers'
 
@@ -17,9 +21,6 @@ Or install it yourself as:
     $ gem install chef-helpers
 
 ## Usage
-
-Just add `chef_gem 'chef-helpers'` and `require 'chef-helpers'` in
-your recipes.
 
 Detailed documentation of the helper methods can be seen at
 http://rdoc.info/github/3ofcoins/chef-helpers/
