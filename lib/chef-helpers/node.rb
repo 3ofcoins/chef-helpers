@@ -41,7 +41,9 @@ class Chef::Node
   # @param [Chef::Node] other_node Node, whose IP we need to know
   # @return [String] IP of `other_node`
   def ip_for(other_node)
-    if other_node['ec2'] && self['ec2'] && self['ec2']['placement_availability_zone'] == other_node['ec2']['placement_availability_zone']
+    # Strip last letter from availability zone to get region.
+    if other_node['ec2'] && self['ec2'] &&
+       self['ec2']['placement_availability_zone'].sub(/[a-z]$/,'') == other_node['ec2']['placement_availability_zone'].sub(/[a-z]$/,'')
       other_node['ec2']['local_ipv4']
     elsif other_node['cloud']
       other_node['cloud']['public_ipv4']
