@@ -67,9 +67,9 @@ module ChefHelpers
         end
       sources.find do |source|
         if source =~ /::/
-          src, ckbk = $`, $'
+          ckbk, src = $`, $'
         else
-          src, ckbk = source, cookbook_name
+          ckbk, src = cookbook_name, source
         end
         has_source?(src, segment, ckbk)
       end
