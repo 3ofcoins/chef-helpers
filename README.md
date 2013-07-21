@@ -25,6 +25,30 @@ Or install it yourself as:
 Detailed documentation of the helper methods can be seen at
 http://rdoc.info/github/3ofcoins/chef-helpers/
 
+### JSONPath access to attributes
+
+The `Chef::Node` class is monkey-patched to allow easy deep access to
+the attributes using the
+[JSONPath](http://goessner.net/articles/JsonPath/) syntax:
+
+```
+chef > require 'chef-helpers'
+ => true 
+chef > node['$..name']
+ => ["portinari-2.local", "Java(TM) SE Runtime Environment", "Java HotSpot(TM) 64-Bit Server VM", "Darwin"] 
+chef > node['$.kernel.name']
+ => ["Darwin"] 
+```
+
+Regular access to attributes is preserved; JSONPath is used only when
+the attribute name starts with `$` character, or if a `JSONPath`
+instance is used for indexing.
+
+The [jsonpath gem](https://github.com/joshbuddy/jsonpath) is used for
+the implementation. While the original gem allows modification, it's
+not straightforward to achieve with Chef's attributes, so only reading
+attributes with JSONPath is supported.
+
 ## Contributing
 
 1. Fork it

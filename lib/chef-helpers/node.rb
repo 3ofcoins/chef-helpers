@@ -1,4 +1,5 @@
 require 'chef/node'
+require 'jsonpath'
 
 class Chef::Node
 
@@ -7,14 +8,14 @@ class Chef::Node
   # attribute. The `allies` attribute - if set - should be an array of
   # node names or node search queries; the named nodes and search
   # results will be added to node's allies.
-  # 
+  #
   # This is mostly useful when defining firewall or other access
   # rules, to easily limit access to insides of a cluster plus a
   # handful of friendly machines.
   #
   # @return [Array<Chef::Node>] Array of node's "allies".
   def allies
-    @allies ||= 
+    @allies ||=
       begin
         rv = []
         q =  Chef::Search::Query.new
@@ -30,12 +31,12 @@ class Chef::Node
   end
 
   # Find out, which IP should be used to contact with other node.
-  # 
+  #
   # If both nodes are on EC2 and in the same region, then other node's
   # `ec2.local_ipv4` attribute is used. Otherwise, if other node is a
   # cloud instance, its `cloud_public.ipv4` attribute is
   # used. Otherwise, other node's `ipaddress` is used.
-  # 
+  #
   # @note This method may return wrong IP with non-EC2 cloud
   #       providers, and can use some tweaking for such cases.
   # @param [Chef::Node] other_node Node, whose IP we need to know
@@ -51,4 +52,15 @@ class Chef::Node
       other_node['ipaddress']
     end
   end
+
+  # jsonpath access to node attributes
+  def brackets_with_jsonpath(key)
+    case key
+    when JsonPath then key.on(self.to_hash)
+    when /^\$/    then JsonPath.on(self.to_hash, key)
+    else               self.brackets_without_jsonpath(key)
+    end
+  end
+  alias_method :brackets_without_jsonpath, :[]
+  alias_method :[], :brackets_with_jsonpath
 end

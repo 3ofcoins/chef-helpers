@@ -16,4 +16,5 @@ Gem::Specification.new do |gem|
   gem.version       = ChefHelpers::VERSION
 
   gem.add_dependency "chef"
+  gem.add_dependency "jsonpath"
 end
