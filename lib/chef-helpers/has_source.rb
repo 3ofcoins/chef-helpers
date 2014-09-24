@@ -38,7 +38,7 @@ module ChefHelpers
     # @return [String,nil] full path to the template source or `nil`
     # @see #has_source?
     def has_cookbook_file?(cbf, cookbook=nil)
-      has_source?(tmpl, :files, cookbook)
+      has_source?(cbf, :files, cookbook)
     end
 
     # For a list of sources, returns first source that exist
