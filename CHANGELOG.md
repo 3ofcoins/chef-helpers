@@ -1,6 +1,10 @@
 Changes
 =======
 
+0.1.1
+-----
+ - Fix crucial typo in `has_cookbook_file?`. Authored by @maoueh!
+
 0.1.0
 -----
  - First not 0.0.* release
