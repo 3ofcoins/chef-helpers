@@ -17,7 +17,7 @@ module ChefHelpers
       cookbook ||= cookbook_name
       begin
         run_context.cookbook_collection[cookbook].
-          preferred_filename_on_disk_location(run_context.node, segment, source)
+          send(:find_preferred_manifest_record, run_context.node, segment, source)
       rescue Chef::Exceptions::FileNotFound
         nil
       end
