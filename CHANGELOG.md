@@ -1,6 +1,10 @@
 Changes
 =======
 
+0.1.2
+-----
+ - Fix problem on calling `has_resource?` multiple times. Authored by @sonots!
+
 0.1.1
 -----
  - Fix crucial typo in `has_cookbook_file?`. Authored by @maoueh!
